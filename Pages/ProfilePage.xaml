@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppPro.Pages.ProfilePage"
+             Title="Profile"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F0F4F8">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Frame WidthRequest="120" HeightRequest="120"
+                   CornerRadius="60" Padding="0" IsClippedToBounds="True"
+                   HorizontalOptions="Center" BorderColor="#B0BEC5">
+                <Image Source="{Binding ProfilePicture}" WidthRequest="120" HeightRequest="120" Aspect="AspectFill"/>
+            </Frame>
+
+            <Frame BackgroundColor="White" CornerRadius="12" Padding="15" BorderColor="#CFD8DC">
+                <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Label Text="{Binding FullName}" FontSize="24" FontAttributes="Bold" TextColor="#263238"/>
+                    <Label Text="{Binding StudentId, StringFormat='รหัสนิสิต: {0}'}" FontSize="16" TextColor="#546E7A"/>
+                    <Label Text="{Binding Major, StringFormat='สาขา: {0}'}" FontSize="16" TextColor="#546E7A"/>
+                    <Label Text="{Binding Year, StringFormat='ชั้นปี: {0}'}" FontSize="16" TextColor="#546E7A"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" CornerRadius="12" Padding="15" BorderColor="#CFD8DC">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📚 วิชาเรียนภาคการศึกษาปัจจุบัน" FontSize="18" FontAttributes="Bold" TextColor="#263238"/>
+                    <CollectionView ItemsSource="{Binding CurrentSemesterCourses}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="#E1F5FE" Padding="12" CornerRadius="8" BorderColor="#B3E5FC">
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="{Binding CourseName}" FontSize="16" TextColor="#263238"/>
+                                        <Label Text="{Binding Grade, StringFormat='เกรด: {0}'}" FontSize="14" TextColor="#546E7A"/>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" CornerRadius="12" Padding="15" BorderColor="#CFD8DC">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📜 วิชาเรียนภาคการศึกษาที่ผ่านมา" FontSize="18" FontAttributes="Bold" TextColor="#263238"/>
+                    <CollectionView ItemsSource="{Binding PreviousSemesterCourses}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="#E8F5E9" Padding="12" CornerRadius="8" BorderColor="#A5D6A7">
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="{Binding Semester}" FontSize="16" FontAttributes="Bold" TextColor="#263238"/>
+                                        <CollectionView ItemsSource="{Binding Courses}" SelectionMode="None">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <VerticalStackLayout Padding="8">
+                                                        <Label Text="{Binding CourseName}" FontSize="14" TextColor="#263238"/>
+                                                        <Label Text="{Binding Grade, StringFormat='เกรด: {0}'}" FontSize="12" TextColor="#546E7A"/>
+                                                    </VerticalStackLayout>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

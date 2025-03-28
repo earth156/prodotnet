@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiAppPro.ViewsModel"
+             x:Class="MauiAppPro.Pages.SearchCoursesPage"
+             Shell.NavBarIsVisible="False"
+             Title="ค้นหาวิชาเรียน"
+             BackgroundColor="#F0F4F8">
+
+    <ContentPage.BindingContext>
+        <viewmodel:SearchCoursesViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Entry Placeholder="ค้นหาวิชา..."
+                   BackgroundColor="White"
+                   TextColor="#333"
+                   PlaceholderColor="#999"
+                   Margin="0,0,0,10"
+                   Text="{Binding SearchText}"/>
+
+            <Button Text="ค้นหา"
+                    Command="{Binding SearchCoursesCommand}"/>
+
+            <CollectionView ItemsSource="{Binding FilteredCourses}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="{Binding FrameBackgroundColor}"
+                               CornerRadius="10"
+                               Padding="12"
+                               BorderColor="#CFD8DC">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                    <Label Text="{Binding CourseName}"
+                                           FontSize="16"
+                                           TextColor="#333"/>
+                                    <Label Text="{Binding CourseCode}"
+                                           FontSize="14"
+                                           TextColor="#666"/>
+                                    <Label Text="{Binding Credit, StringFormat='หน่วยกิต: {0}'}"
+                                           FontSize="14"
+                                           TextColor="#666"/>
+                                </VerticalStackLayout>
+                                <Button Grid.Column="1"
+                                        Text="{Binding AddButtonText}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SearchCoursesViewModel}}, Path=AddCourseCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="{Binding AddButtonBackgroundColor}"
+                                        TextColor="White"
+                                        IsEnabled="{Binding IsAdded, Converter={StaticResource BoolToEnabledConverter}}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

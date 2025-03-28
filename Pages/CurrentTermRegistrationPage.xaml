@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppPro.Pages.CurrentTermRegistrationPage"
+             Title="ข้อมูลการลงทะเบียนเรียนเทอมปัจจุบัน">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Frame BackgroundColor="White" CornerRadius="12" Padding="15" BorderColor="#CFD8DC">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text=" วิชาเรียนภาคการศึกษาปัจจุบัน" FontSize="18" FontAttributes="Bold" TextColor="#263238"/>
+                    <CollectionView ItemsSource="{Binding CurrentSemesterCourses}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="#E1F5FE" Padding="12" CornerRadius="8" BorderColor="#B3E5FC">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                            <Label Text="{Binding CourseName}" FontSize="16" TextColor="#263238"/>
+                                            <Label Text="{Binding Grade, StringFormat='เกรด: {0}'}" FontSize="14" TextColor="#546E7A"/>
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="1" Text="ถอน" Clicked="OnWithdrawClicked" CommandParameter="{Binding .}" BackgroundColor="#F44336" TextColor="White"/>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
